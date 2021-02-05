@@ -21,11 +21,7 @@ function preload(){
 
 
 function setup() {
-  createCanvas(500,500);
-  
-  background1 = createSprite(100,100);
-  background1.addImage(backgroundImage);
-  background1.velocityX = -5;
+  createCanvas(displayWidth/1.5, 500);
   
   monkey = createSprite(100,400)
   monkey.addAnimation("m",monkey_running);
@@ -35,12 +31,12 @@ function setup() {
     monkey.scale = monkey.scale+1 
   }
 
-  Ground = createSprite(250,420,1000,20)
+  Ground = createSprite(250,420,100000,20);
   Ground.visible = false
-  Ground.velocityX = -5;
   
 
-  bg = new Group(); 
+
+  bg = new Group();
   og = new Group();
 
  
@@ -48,15 +44,12 @@ function setup() {
 
 
 function draw() {
-background("white");
-
-    if (Ground.x < 0) {
-     Ground.x = Ground.width/2;
-      }
-   
+  background(backgroundImage);
 
   
  if (gameState === "play") {
+     monkey.velocityX = 1
+     camera.position.x = monkey.x;
      Banana();
      Opsticle();
      destory1();
@@ -68,17 +61,13 @@ background("white");
        gameState = end;
      }
    
-     if (background1.x < 0) {
-     background1.x = background1.width/2;
-      }
  }
-  monkey.velocityY = monkey.velocityY+0.5
+  monkey.velocityY = monkey.velocityY+0.8
   monkey.collide(Ground);
     if (gameState === "end") {
     gameOver();
     og.destroyEach();
     bg.destroyEach();
-    background1.destroy();
     monkey.destroy();
   }
   drawSprites();
@@ -93,8 +82,8 @@ background("white");
 }
 
 function Opsticle() {
-  if (frameCount % 50 === 0) {
-  opsicle = createSprite(500,380)
+  if (camera.position.x % 200 === 0) {
+  opsicle = createSprite(camera.position.x, 380);
   opsicle.addImage(obstaceImage);
   opsicle.scale = 0.21;
   opsicle.velocityX = -5;
@@ -106,8 +95,8 @@ function Opsticle() {
 }
 }
 function Banana() {
-  if (frameCount % 65 === 0) {
-  banana = createSprite(500,random(120,230));
+  if (camera.position.x % 200 === 0) {
+  banana = createSprite(camera.position.x, random(120,230));
   banana.addImage(bananaImage);
   banana.scale = 0.19;
   banana.velocityX = -5;
@@ -132,8 +121,8 @@ function destory1() {
 
 function Score() {
   textSize(25);
-  fill("darkblue");
-  text("Score : "+ score1,230,30);
+  fill("white");
+  text("Score : "+ score1, monkey.x, 30);
 }
 
 
@@ -141,5 +130,5 @@ function Score() {
 function gameOver() {  
   textSize(35);
   fill("red");
-  text("GAMEOVER",145,250);
+  text("GAMEOVER", displayWidth, 250);
   }
