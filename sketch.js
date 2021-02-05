@@ -76,14 +76,16 @@ function draw() {
 
   
   
-  
+  console.log(monkey.x);
   
   
 }
 
+
+
 function Opsticle() {
   if (camera.position.x % 200 === 0) {
-  opsicle = createSprite(camera.position.x, 380);
+  opsicle = createSprite(camera.position.x+500, 380);
   opsicle.addImage(obstaceImage);
   opsicle.scale = 0.21;
   opsicle.velocityX = -5;
@@ -95,8 +97,8 @@ function Opsticle() {
 }
 }
 function Banana() {
-  if (camera.position.x % 200 === 0) {
-  banana = createSprite(camera.position.x, random(120,230));
+  if (camera.position.x % 250 === 0) {
+  banana = createSprite(camera.position.x+500, random(120,230));
   banana.addImage(bananaImage);
   banana.scale = 0.19;
   banana.velocityX = -5;
